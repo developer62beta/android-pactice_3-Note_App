@@ -7,9 +7,12 @@ import androidx.navigation.compose.rememberNavController
 import com.developer62beta.notecompose.myUI.NoteEdite
 import com.developer62beta.notecompose.myUI.NoteScreen
 import com.developer62beta.notecompose.myUI.SearchScreen
+import com.developer62beta.notecompose.viewModel.NoteViewModel
+import com.developer62beta.notecompose.viewModel.SearchViewModel
 
 @Composable
-fun NavigationGraph(){
+fun NavigationGraph(noteViewModel: NoteViewModel = NoteViewModel()){
+
     val myNavController = rememberNavController()
 
     NavHost(
@@ -18,15 +21,16 @@ fun NavigationGraph(){
     ){
 
         composable<MyNavRoute.Home>{
-            NoteScreen(myNavController)
+            NoteScreen(myNavController, noteViewModel)
         }
 
         composable<MyNavRoute.NoteEdit>{
-            NoteEdite(myNavController)
+            NoteEdite(myNavController, noteViewModel)
         }
 
         composable<MyNavRoute.Search> {
-            SearchScreen(myNavController)
+
+            SearchScreen(myNavController, noteViewModel)
         }
     }
 }

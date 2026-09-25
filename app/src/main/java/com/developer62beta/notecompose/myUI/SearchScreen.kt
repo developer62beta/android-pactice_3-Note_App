@@ -16,27 +16,26 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.developer62beta.notecompose.nav.MyNavRoute
 import com.developer62beta.notecompose.nav.navControl
+import com.developer62beta.notecompose.viewModel.NoteViewModel
+import com.developer62beta.notecompose.viewModel.SearchViewModel
 
 @Composable
-fun SearchScreen(myNavController: NavHostController) {
+fun SearchScreen(
+    myNavController: NavHostController,
+    noteViewModel: NoteViewModel,
+    viewModel: SearchViewModel = SearchViewModel()
+) {
 
     val navItem = TopBarItem("Search", Icons.Default.Search, MyNavRoute.Home)
-    var search by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = { NoteTopBar(navItem,myNavController) }
+        topBar = { NoteTopBar(navItem, myNavController) }
     ) { innerPadding ->
 
         Row(
@@ -47,14 +46,18 @@ fun SearchScreen(myNavController: NavHostController) {
         ) {
 
             OutlinedTextField(
-                value = search,
-                onValueChange = { search = it},
+                value = viewModel.searchQuery,
+                onValueChange = { viewModel.onSearchQueryChanged(it) },
+                singleLine = true,
                 placeholder = { Text(text = " Search ... ") },
                 modifier = Modifier.height(60.dp)
             )
 
             IconButton (
-                onClick = { navControl(myNavController, navItem.route) },
+                onClick = {
+                            viewModel.performSearch(noteViewModel)
+                            navControl(myNavController, navItem.route)
+                          },
                 modifier = Modifier.size(60.dp)
                     .background(
                         color = Color.Blue
@@ -77,11 +80,4 @@ fun SearchScreen(myNavController: NavHostController) {
 
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun Test(){
-    val myNavController = rememberNavController()
-    SearchScreen(myNavController)
 }

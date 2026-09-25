@@ -24,32 +24,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.developer62beta.notecompose.data.Note
 import com.developer62beta.notecompose.nav.MyNavRoute
 import com.developer62beta.notecompose.nav.navControl
+import com.developer62beta.notecompose.viewModel.NoteViewModel
 
 @Composable
-fun NoteScreen(myNavController: NavHostController) {
+fun NoteScreen(
+    myNavController: NavHostController,
+    noteScreen: NoteViewModel
+) {
 
-    val list1: List<Note> = listOf(
-        Note(1, "note 1", "this is test 1"),
-        Note(2, "note 2", "this is just test 2"),
-        Note(3, "note 3", "this is just test 3"),
-        Note(3, "note 4", "this is just test 3"),
-        Note(3, "note 5", "this is just test 3"),
-        Note(3, "note 6", "this is just test 3"),
-        Note(3, "note 7", "this is just test 3"),
-        Note(3, "note 8", "this is just test 3"),
-        Note(3, "note 9", "this is just test 3"),
-        Note(3, "note 10", "this is just test 3"),
-        Note(3, "note 11", "this is just test 3"),
-        Note(3, "note 13", "this is just test 3"),
-        Note(1,"hello")
-    )
 
     val navItem = TopBarItem("Search",Icons.Default.Search, MyNavRoute.Search)
     Scaffold(
-        topBar = { NoteTopBar( navItem, myNavController) },
+        topBar = { NoteTopBar(navItem, myNavController) },
         floatingActionButton = { FloatingActionButton(myNavController) }
     ) {innerPadding ->
 
@@ -58,7 +46,7 @@ fun NoteScreen(myNavController: NavHostController) {
             contentPadding = PaddingValues(4.dp),
             modifier = Modifier.padding(innerPadding)
         ) {
-            items(list1){note ->
+            items(noteScreen.note){note ->
                 Card(
                     onClick = { navControl(myNavController, MyNavRoute.NoteEdit) },
                     elevation = CardDefaults.cardElevation(4.dp),

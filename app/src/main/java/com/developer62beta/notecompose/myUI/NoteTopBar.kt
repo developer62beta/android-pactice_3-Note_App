@@ -23,7 +23,11 @@ import androidx.navigation.NavHostController
 import com.developer62beta.notecompose.nav.navControl
 
 @Composable
-fun NoteTopBar(navItem: TopBarItem, myNavController: NavHostController){
+fun NoteTopBar(
+    navItem: TopBarItem,
+    myNavController: NavHostController,
+    onActionClick: (() -> Unit)? = null // <-- Add this parameter
+){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,7 +57,13 @@ fun NoteTopBar(navItem: TopBarItem, myNavController: NavHostController){
             )
 
         IconButton(
-            onClick = { navControl(myNavController, navItem.route) },
+            onClick = {
+                        if (onActionClick != null) {
+                            onActionClick()
+                        } else {
+                            navControl(myNavController, navItem.route)
+                        }
+                      },
             modifier = Modifier.size(60.dp) // Makes the entire button larger
         ) {
             Icon(
