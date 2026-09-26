@@ -29,9 +29,7 @@ import com.developer62beta.notecompose.viewModel.NoteViewModel
 fun NoteEdit( // Fixed typo from NoteEdite to NoteEdit
     myNavController: NavHostController,
     noteViewModel: NoteViewModel,
-    cardNote: MyNavRoute.NoteEdit,
-    context: Context,
-    editeViewModel: EditeViewModel = EditeViewModel(cardNote, context)
+    editeViewModel: EditeViewModel
 ) {
     val navItem = TopBarItem("Note", Icons.Default.Save, MyNavRoute.Home)
 

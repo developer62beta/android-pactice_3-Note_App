@@ -29,7 +29,7 @@ import com.developer62beta.notecompose.viewModel.SearchViewModel
 fun SearchScreen(
     myNavController: NavHostController,
     noteViewModel: NoteViewModel,
-    viewModel: SearchViewModel = SearchViewModel()
+    viewModel: SearchViewModel
 ) {
 
     val navItem = TopBarItem("Search", Icons.Default.Search, MyNavRoute.Home)
