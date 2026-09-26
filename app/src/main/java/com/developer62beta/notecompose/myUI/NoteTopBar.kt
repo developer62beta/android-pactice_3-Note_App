@@ -28,8 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.developer62beta.notecompose.data.ui.Item
 import com.developer62beta.notecompose.data.ui.MenuItem
+import com.developer62beta.notecompose.data.ui.MenuItems
 import com.developer62beta.notecompose.data.ui.TopBarItem
 import com.developer62beta.notecompose.nav.navControl
 
@@ -38,7 +38,7 @@ fun NoteTopBar(
     navItem: TopBarItem,
     myNavController: NavHostController,
     onActionClick: (() -> Unit)? = null,
-    menuItem: List<MenuItem> = Item.ites
+    menuItem: List<MenuItem> = MenuItems.items
 ) {
     var extendedState by remember { mutableStateOf(false) }
 
