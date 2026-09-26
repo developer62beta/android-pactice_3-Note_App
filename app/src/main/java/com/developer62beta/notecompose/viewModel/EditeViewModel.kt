@@ -1,18 +1,26 @@
 package com.developer62beta.notecompose.viewModel
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.developer62beta.notecompose.data.Note
+import com.developer62beta.notecompose.nav.MyNavRoute
+import com.developer62beta.notecompose.repo.Repo
+import kotlinx.coroutines.launch
 
-class EditeViewModel: ViewModel(){
+class EditeViewModel(cardNote: MyNavRoute.NoteEdit, context: Context) : ViewModel(){
     // Use mutableStateOf for a single String variable
-    var title by mutableStateOf("")
+    var title by mutableStateOf(cardNote.title)
+        private set
+    private val repo = Repo(context)
+
+    var noteData by mutableStateOf(cardNote.note)
         private set
 
-    var noteData by mutableStateOf("")
-        private set
+    val cardNote1 = cardNote
 
     fun onTitleChanged(newTitle: String) {
         title = newTitle
@@ -23,13 +31,18 @@ class EditeViewModel: ViewModel(){
     }
 
     fun saveNote(noteViewModel: NoteViewModel) {
+        val isUpdate = cardNote1.id != 0
+
         if (title.isNotBlank() || noteData.isNotBlank()) {
             val newNote = Note(
-                id = (noteViewModel.note.size + 1), // Simple ID generator
+                id = if (isUpdate) cardNote1.id else 0,
                 title = title,
                 note = noteData
             )
-            noteViewModel.note.add(0, newNote) // Adds it to the top of your list
+            viewModelScope.launch {
+                if (isUpdate) repo.updateNote(newNote) else repo.insertNote(newNote)
+                noteViewModel.loadNote()
+            }
         }
     }
 }

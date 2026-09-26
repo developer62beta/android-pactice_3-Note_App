@@ -1,37 +1,39 @@
 package com.developer62beta.notecompose.viewModel
 
 
+import android.content.Context
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.developer62beta.notecompose.data.Note
+import com.developer62beta.notecompose.repo.Repo
+import kotlinx.coroutines.launch
 
-class NoteViewModel : ViewModel() {
+class NoteViewModel(context: Context) : ViewModel() {
 
     var note = mutableStateListOf<Note>()
+    val repo = Repo(context)
 
     init {
-
-        val list = listOf(
-            Note(1, "note 1", "this is test 1"),
-            Note(2, "note 2", "this is just test 2"),
-            Note(3, "note 3", "this is just test 3"),
-            Note(3, "note 4", "this is just test 3"),
-            Note(3, "note 5", "this is just test 3"),
-            Note(3, "note 6", "this is just test 3"),
-            Note(3, "note 7", "this is just test 3"),
-            Note(3, "note 8", "this is just test 3"),
-            Note(3, "note 9", "this is just test 3"),
-            Note(3, "note 10", "this is just test 3"),
-            Note(3, "note 11", "this is just test 3"),
-            Note(3, "note 13", "this is just test 3"),
-            Note(1, "hello")
-        )
-
-        loadNote(list)
+        loadNote()
     }
 
-    fun loadNote(list: List<Note> = emptyList()){
-        // data base simulation
-        note.addAll(list)
+    fun loadNote(){
+        viewModelScope.launch {
+            val noteList = repo.getAllNote()
+            note.clear()
+            note.addAll(noteList)
+        }
+    }
+
+    fun deleteNote(target: Note) {
+        viewModelScope.launch {
+            repo.deleteNote(target)
+            loadNote()
+        }
     }
 }

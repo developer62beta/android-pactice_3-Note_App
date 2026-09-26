@@ -9,7 +9,7 @@ sealed class MyNavRoute{
     data object Home: MyNavRoute()
 
     @Serializable
-    data object NoteEdit: MyNavRoute()
+    data class NoteEdit(var id: Int, var title: String, var note: String): MyNavRoute()
 
     @Serializable
     object Search : MyNavRoute()
