@@ -1,6 +1,7 @@
 package com.developer62beta.notecompose.nav
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -21,7 +22,7 @@ import com.developer62beta.notecompose.viewModel.SearchViewModel
 fun NavigationGraph(){
 
     val context = LocalContext.current.applicationContext
-    val repo = Repo(context)
+    val repo = remember { Repo(context) }
 
     // Clean and reusable factory call
     val noteViewModel: NoteViewModel = viewModel(

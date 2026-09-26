@@ -38,7 +38,7 @@ fun NoteTopBar(
     navItem: TopBarItem,
     myNavController: NavHostController,
     onActionClick: (() -> Unit)? = null,
-    menuItem: List<MenuItem> = Item().ites
+    menuItem: List<MenuItem> = Item.ites
 ) {
     var extendedState by remember { mutableStateOf(false) }
 

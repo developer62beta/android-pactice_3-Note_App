@@ -8,7 +8,7 @@ data class MenuItem(
     var route: MyNavRoute,
 )
 
-class Item{
+object Item{
     val ites: List<MenuItem> = listOf(
         MenuItem("HOME", MyNavRoute.Home),
         MenuItem("SETTINGS", MyNavRoute.Setting),
