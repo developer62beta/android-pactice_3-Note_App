@@ -4,8 +4,8 @@ import com.developer62beta.notecompose.nav.MyNavRoute
 
 data class MenuItem(
 
-    var title: String,
-    var route: MyNavRoute,
+    val title: String,
+    val route: MyNavRoute,
 )
 
 object MenuItems{
