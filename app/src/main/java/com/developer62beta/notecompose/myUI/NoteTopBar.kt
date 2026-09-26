@@ -24,78 +24,92 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.developer62beta.notecompose.data.ui.Item
+import com.developer62beta.notecompose.data.ui.MenuItem
+import com.developer62beta.notecompose.data.ui.TopBarItem
 import com.developer62beta.notecompose.nav.navControl
 
 @Composable
 fun NoteTopBar(
     navItem: TopBarItem,
     myNavController: NavHostController,
-    onActionClick: (() -> Unit)? = null // <-- Add this parameter
-){
-
+    onActionClick: (() -> Unit)? = null,
+    menuItem: List<MenuItem> = Item().ites
+) {
     var extendedState by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.Blue)
-            .statusBarsPadding() // <-- 2. Automatically pushes content down below the status bar
+            .background(color = Color(0xFF1E3A8A))
+            .statusBarsPadding()
             .height(60.dp)
-            .padding(horizontal = 16.dp), // Optional: adds a bit of inner side spacing
+            .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-            IconButton (
+        // Menu button + Dropdown
+        Box {
+            IconButton(
                 onClick = { extendedState = true },
-                modifier = Modifier.size(60.dp) // Makes the entire button larger
+                modifier = Modifier.size(48.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu Icon",
+                    contentDescription = "Menu",
                     tint = Color.White,
-                    modifier = Modifier.size(40.dp) // Make the inner icon bigger too
-                )
-            }
-
-            Text(
-                text = "Notes",
-                color = Color.White,
-                fontSize = 30.sp
-            )
-
-            IconButton(
-                onClick = {
-                    if (onActionClick != null) {
-                        onActionClick()
-                    } else {
-                        navControl(myNavController, navItem.route)
-                    }
-                },
-                modifier = Modifier.size(60.dp) // Makes the entire button larger
-            ) {
-                Icon(
-                    imageVector = navItem.icon,
-                    contentDescription = "Search Icon",
-                    tint = Color.White,
-                    modifier = Modifier.size(40.dp) // Make the inner icon bigger too
+                    modifier = Modifier.size(28.dp)
                 )
             }
 
             DropdownMenu(
                 expanded = extendedState,
-                onDismissRequest = { extendedState = false }
+                onDismissRequest = { extendedState = false },
+                containerColor = Color(0xFF1E3A8A),
+                modifier = Modifier.padding(0.dp)
             ) {
-                DropdownMenuItem(
-                    text = { Text(text = "About") },
-                    onClick = {},
 
+                menuItem.forEach { item ->
+                    DropdownMenuItem(
+                        text = { Text(item.title, color = Color.White) },
+                        onClick = {
+                            extendedState = false
+                            navControl(myNavController, item.route)
+                        }
                     )
+                }
             }
+        }
 
+        // Title
+        Text(
+            text = "Notes",
+            color = Color.White,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        // Right action button (Search / Save)
+        IconButton(
+            onClick = {
+                if (onActionClick != null) {
+                    onActionClick()
+                } else {
+                    navControl(myNavController, navItem.route)
+                }
+            },
+            modifier = Modifier.size(48.dp)
+        ) {
+            Icon(
+                imageVector = navItem.icon,
+                contentDescription = navItem.title,
+                tint = Color.White,
+                modifier = Modifier.size(28.dp)
+            )
         }
     }
-
-
+}

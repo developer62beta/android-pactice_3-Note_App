@@ -14,4 +14,10 @@ sealed class MyNavRoute{
     @Serializable
     object Search : MyNavRoute()
 
+    @Serializable
+    object Setting: MyNavRoute()
+
+    @Serializable
+    object About: MyNavRoute()
+
 }

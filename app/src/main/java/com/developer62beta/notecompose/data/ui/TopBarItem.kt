@@ -1,4 +1,4 @@
-package com.developer62beta.notecompose.myUI
+package com.developer62beta.notecompose.data.ui
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.developer62beta.notecompose.nav.MyNavRoute

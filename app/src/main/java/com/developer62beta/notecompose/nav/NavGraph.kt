@@ -7,9 +7,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.developer62beta.notecompose.myUI.AboutScreen
 import com.developer62beta.notecompose.myUI.NoteEdit
 import com.developer62beta.notecompose.myUI.NoteScreen
 import com.developer62beta.notecompose.myUI.SearchScreen
+import com.developer62beta.notecompose.myUI.SettingScreen
 import com.developer62beta.notecompose.repo.Repo
 import com.developer62beta.notecompose.viewModel.EditeViewModel
 import com.developer62beta.notecompose.viewModel.NoteViewModel
@@ -53,6 +55,14 @@ fun NavigationGraph(){
         composable<MyNavRoute.Search> {
 
             SearchScreen(myNavController, noteViewModel,searchViewModel)
+        }
+
+        composable<MyNavRoute.About> {
+            AboutScreen()
+        }
+
+        composable<MyNavRoute.Setting> {
+            SettingScreen()
         }
     }
 }

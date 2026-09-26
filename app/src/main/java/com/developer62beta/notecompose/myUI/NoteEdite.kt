@@ -1,6 +1,6 @@
 package com.developer62beta.notecompose.myUI
 
-import android.content.Context
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.developer62beta.notecompose.data.ui.TopBarItem
 import com.developer62beta.notecompose.nav.MyNavRoute
 import com.developer62beta.notecompose.nav.navControl
 import com.developer62beta.notecompose.viewModel.EditeViewModel
