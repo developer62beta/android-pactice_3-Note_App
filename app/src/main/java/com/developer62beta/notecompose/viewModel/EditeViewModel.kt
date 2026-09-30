@@ -3,21 +3,30 @@ package com.developer62beta.notecompose.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.toRoute
 import com.developer62beta.notecompose.data.Note
 import com.developer62beta.notecompose.nav.MyNavRoute
 import com.developer62beta.notecompose.repo.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditeViewModel(cardNote: MyNavRoute.NoteEdit, context: Repo) : ViewModel(){
+
+@HiltViewModel
+class EditeViewModel @Inject constructor(
+    private val repo: Repo,
+    savedStateHandle: SavedStateHandle // Automatically receives navigation arguments
+
+) : ViewModel() {
+
+    // Retrieve the type-safe route arguments straight from SavedStateHandle
+    private val cardNote = savedStateHandle.toRoute<MyNavRoute.NoteEdit>()
     // Use mutableStateOf for a single String variable
     var title by mutableStateOf(cardNote.title)
         private set
-    private val repo = context
 
     var noteData by mutableStateOf(cardNote.note)
         private set
@@ -44,14 +53,6 @@ class EditeViewModel(cardNote: MyNavRoute.NoteEdit, context: Repo) : ViewModel()
             viewModelScope.launch {
                 if (isUpdate) repo.updateNote(newNote) else repo.insertNote(newNote)
                 noteViewModel.loadNote()
-            }
-        }
-    }
-
-    companion object {
-        fun provideFactory(cardNote: MyNavRoute.NoteEdit, repo: Repo): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                EditeViewModel(cardNote, repo)
             }
         }
     }

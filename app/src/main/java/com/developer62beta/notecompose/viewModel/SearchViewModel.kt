@@ -4,12 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.developer62beta.notecompose.repo.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SearchViewModel(repo1: Repo) : ViewModel() {
+
+@HiltViewModel
+class SearchViewModel @Inject constructor ( private val repo: Repo) : ViewModel() {
     // State exposed to the UI
     var searchQuery by mutableStateOf("")
         private set
@@ -29,14 +30,6 @@ class SearchViewModel(repo1: Repo) : ViewModel() {
             }
             noteViewModel.note.clear()
             noteViewModel.note.addAll(filteredList)
-        }
-    }
-
-    companion object {
-        fun provideFactory(repo: Repo): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SearchViewModel(repo)
-            }
         }
     }
 }

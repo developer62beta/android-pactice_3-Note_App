@@ -3,18 +3,18 @@ package com.developer62beta.notecompose.viewModel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.developer62beta.notecompose.data.Note
 import com.developer62beta.notecompose.repo.Repo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel(context: Repo) : ViewModel() {
+
+@HiltViewModel
+class NoteViewModel @Inject constructor( private val repo: Repo ) : ViewModel() {
 
     var note = mutableStateListOf<Note>()
-    val repo = context
 
     init {
         loadNote()
@@ -35,11 +35,4 @@ class NoteViewModel(context: Repo) : ViewModel() {
         }
     }
 
-    companion object {
-        fun provideFactory(repo: Repo): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                NoteViewModel(repo)
-            }
-        }
-    }
 }

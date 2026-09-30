@@ -1,12 +1,10 @@
 package com.developer62beta.notecompose.repo
 
-import android.content.Context
 import com.developer62beta.notecompose.data.Note
-import com.developer62beta.notecompose.data.NoteDB
+import com.developer62beta.notecompose.data.NoteDAO
+import javax.inject.Inject
 
-class Repo(context: Context){
-    private val db = NoteDB.getDB(context)
-    private val noteDao = db.noteDao()
+class Repo @Inject constructor(private val noteDao: NoteDAO){
 
     suspend fun getAllNote() = noteDao.getAllNotes()
 
