@@ -13,9 +13,10 @@ import com.developer62beta.notecompose.myUI.SettingScreen
 import com.developer62beta.notecompose.viewModel.EditeViewModel
 import com.developer62beta.notecompose.viewModel.NoteViewModel
 import com.developer62beta.notecompose.viewModel.SearchViewModel
+import com.developer62beta.notecompose.viewModel.SettingViewModel
 
 @Composable
-fun NavigationGraph(){
+fun NavigationGraph(settingViewModel: SettingViewModel) {
 
 
     // Clean and reusable factory call
@@ -48,7 +49,7 @@ fun NavigationGraph(){
         }
 
         composable<MyNavRoute.Setting> {
-            SettingScreen()
+            SettingScreen(settingViewModel)
         }
     }
 }

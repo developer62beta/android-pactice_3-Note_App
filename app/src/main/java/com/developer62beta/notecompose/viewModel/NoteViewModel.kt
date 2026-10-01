@@ -4,7 +4,7 @@ package com.developer62beta.notecompose.viewModel
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.developer62beta.notecompose.data.Note
+import com.developer62beta.notecompose.data.model.Note
 import com.developer62beta.notecompose.repo.Repo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

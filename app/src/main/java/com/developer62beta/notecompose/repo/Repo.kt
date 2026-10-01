@@ -1,7 +1,7 @@
 package com.developer62beta.notecompose.repo
 
-import com.developer62beta.notecompose.data.Note
-import com.developer62beta.notecompose.data.NoteDAO
+import com.developer62beta.notecompose.data.model.Note
+import com.developer62beta.notecompose.data.dao.NoteDAO
 import javax.inject.Inject
 
 class Repo @Inject constructor(private val noteDao: NoteDAO){

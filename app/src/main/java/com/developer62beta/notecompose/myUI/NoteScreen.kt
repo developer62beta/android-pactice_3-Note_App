@@ -35,7 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.developer62beta.notecompose.data.Note
+import com.developer62beta.notecompose.data.model.Note
 import com.developer62beta.notecompose.data.ui.TopBarItem
 import com.developer62beta.notecompose.nav.MyNavRoute
 import com.developer62beta.notecompose.nav.navControl

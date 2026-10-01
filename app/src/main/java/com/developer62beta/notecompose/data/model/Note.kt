@@ -1,4 +1,4 @@
-package com.developer62beta.notecompose.data
+package com.developer62beta.notecompose.data.model
 
 import androidx.room3.Entity
 import androidx.room3.PrimaryKey
